@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Provider, useStore, useTable } from "tinybase/ui-react";
 import { createAppStore } from "@/app/lib/store";
 
@@ -54,8 +54,26 @@ function TodoList({ text, setText }) {
 }
 
 
+export function ADDTest() {
 
-// You're really close! The issue is that you're creating your store *inside* a client component, and then trying to use context hooks (`useTable` and `useStore`) *outside* that context. Here's a revised version that follows TinyBase's recommended pattern:
+  useEffect(() => {
+    const testFunc = async () => {
+      await fetch("/api/todos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: "test", title: "test", done: 0 }),
+      });
+    }
+    testFunc()
+  }, [])
+  return (
+    <div>hello</div>
+  )
+}
+
+ADDTest// You're really close! The issue is that you're creating your store *inside* a client component, and then trying to use context hooks (`useTable` and `useStore`) *outside* that context. Here's a revised version that follows TinyBase's recommended pattern:
 //
 // ---
 //
